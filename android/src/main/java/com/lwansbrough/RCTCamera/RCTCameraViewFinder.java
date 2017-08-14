@@ -308,7 +308,7 @@ class RCTCameraViewFinder extends TextureView implements TextureView.SurfaceText
 
             int width = size.width;
             int height = size.height;
-
+            try {
             // rotate for zxing if orientation is portrait
             if (RCTCamera.getInstance().getActualDeviceOrientation() == 0) {
                 byte[] rotated = new byte[imageData.length];
@@ -321,8 +321,6 @@ class RCTCameraViewFinder extends TextureView implements TextureView.SurfaceText
                 height = size.width;
                 imageData = rotated;
             }
-
-            try {
                 PlanarYUVLuminanceSource source = new PlanarYUVLuminanceSource(imageData, width, height, 0, 0, width, height, false);
                 BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
                 Result result = _multiFormatReader.decodeWithState(bitmap);
